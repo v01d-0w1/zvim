@@ -12,13 +12,6 @@ vim.opt.softtabstop = 4
 vim.g.mapleader = " "
 vim.wo.number = true
 
---vim.api.nvim_set_keymap('n', '<Esc>', ':q<CR>', { noremap = true, silent = true })
---vim.api.nvim_set_keymap('i', '<Esc>', '<Esc>:q<CR>', { noremap = true, silent = true })
---vim.api.nvim_set_keymap('v', '<Esc>', '<Esc>:q<CR>', { noremap = true, silent = true })
-
---vim.api.nvim_set_keymap('n', '<Esc>', ':confirm q<CR>', { noremap = true, silent = true })
---vim.api.nvim_set_keymap('i', '<Esc>', '<Esc>:confirm q<CR>', { noremap = true, silent = true })
-
 -- Completely disable Escape key in all modes
 vim.api.nvim_set_keymap('n', '<Esc>', '<Nop>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('i', '<Esc>', '<Nop>', { noremap = true, silent = true })
@@ -202,4 +195,29 @@ vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
     require("lazy").update({ show = false })
   end
+})
+
+require("tiny-inline-diagnostic").setup({
+    preset = "modern",
+     hi = {
+        error = "DiagnosticError",     -- Highlight for error diagnostics
+        warn = "DiagnosticWarn",       -- Highlight for warning diagnostics
+        info = "DiagnosticInfo",       -- Highlight for info diagnostics
+        hint = "DiagnosticHint",       -- Highlight for hint diagnostics
+        arrow = "NonText",             -- Highlight for the arrow pointing to diagnostic
+        background = "CursorLine",     -- Background highlight for diagnostics
+        mixing_color = "Normal",       -- Color to blend background with (or "None")
+    },
+     signs = {
+        left = "",
+        right = "",
+        diag = "●",
+        arrow = "    ",
+        up_arrow = "    ",
+        vertical = " │",
+        vertical_end = " └",
+    },
+    blend = {
+        factor = 0.22,
+    }
 })
