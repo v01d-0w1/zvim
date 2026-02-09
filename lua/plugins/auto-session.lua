@@ -16,6 +16,23 @@ return {
       },
       session_dir = vim.fn.stdpath("config") .. "/sessions/",
     })
+
+    -- Load last session function
+    _G.load_last_session = function()
+      local session_dir = vim.fn.stdpath("config") .. "/sessions/"
+      local sessions = vim.fn.glob(session_dir .. "*.vim", false, true)
+
+      table.sort(sessions, function(a, b)
+        return vim.fn.getftime(a) > vim.fn.getftime(b)
+      end)
+
+      if #sessions > 0 then
+        vim.cmd("source " .. sessions[1])
+        vim.notify("Loaded session: " .. vim.fn.fnamemodify(sessions[1], ":t"), vim.log.levels.INFO)
+      else
+        vim.notify("No sessions found.", vim.log.levels.WARN)
+      end
+    end
   end,
 }
 
