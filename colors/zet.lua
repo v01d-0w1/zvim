@@ -1,0 +1,1 @@
+/home/z6/theme/green/zet.lua
